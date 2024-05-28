@@ -19,7 +19,7 @@
     avatar: "",
     emailVerified: false,
   });
-
+  registerValidationRules();
   const handleRegister = () => {};
 </script>
 
@@ -32,10 +32,10 @@
       <div class="divider my-4">
         <h1 class="text-center mx-3">註冊帳號</h1>
       </div>
-      <form @submit="handleRegister">
+      <VForm @submit="handleRegister" v-slot="{ meta, errors }">
         <div class="input-group mb-1">
           <span class="input-group-text">用戶頭像</span>
-          <input
+          <VField
             v-model="user.avatar"
             type="url"
             name="avatar"
@@ -48,53 +48,68 @@
         </div>
         <PictureValidator :url="user.avatar" :width="200" :height="200" />
         <div class="form-floating mb-4">
-          <input
+          <VField
             v-model="user.name"
             type="text"
             name="name"
             id="nameInput"
             class="form-control"
             rules="name"
+            :class="{ 'is-invalid': errors['name'] }"
             autocomplete="username"
             placeholder="請輸入用戶暱稱" />
           <label for="nameInput">用戶名稱</label>
+          <VErrorMessage name="name" class="invalid-feedback" />
         </div>
         <div class="form-floating mb-4">
-          <input
+          <VField
             v-model="user.email"
             name="email"
             type="email"
             id="emailInput"
             class="form-control"
+            :class="{ 'is-invalid': errors['email'] }"
             placeholder="請輸入電子郵件"
             autocomplete="email"
             rules="email" />
           <label for="emailInput">帳號</label>
+          <VErrorMessage name="email" class="invalid-feedback" />
         </div>
         <div class="form-group">
           <div class="input-group">
             <div class="form-floating">
-              <input
+              <VField
                 v-model="user.password"
                 name="password"
                 :type="isPasswordVisible ? 'text' : 'password'"
                 id="passwordInput"
                 class="form-control form-floating border-end-0 password"
+                :class="{ 'is-invalid': errors['password'] }"
                 placeholder="請輸入密碼"
                 autocomplete="new-password"
                 rules="password" />
               <label for="passwordInput">密碼</label>
+              <VErrorMessage name="password" class="invalid-feedback" />
             </div>
             <span
               class="input-group-text bg-white border-start-0 password"
-              @click="handlePasswordVisible">
-              <i v-if="!isPasswordVisible" class="bi bi-eye-slash"> </i>
-              <i v-if="isPasswordVisible" class="bi bi-eye"></i>
+              @click="handlePasswordVisible"
+              :class="{ 'border-danger': errors['password'] }">
+              <i
+                v-if="!isPasswordVisible"
+                class="bi bi-eye-slash"
+                :class="{ 'text-danger': errors['password'] }"></i>
+              <i
+                v-if="isPasswordVisible"
+                class="bi bi-eye"
+                :class="{ 'text-danger': errors['password'] }"></i>
             </span>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-lg mt-4">註冊</button>
-      </form>
+        <button type="submit" class="btn btn-primary btn-lg mt-4" :disabled="!meta.valid">
+          註冊
+        </button>
+      </VForm>
     </div>
   </div>
 </template>
