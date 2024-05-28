@@ -46,6 +46,7 @@
             建議尺寸200px*200px，將自動調整為最適大小
           </label>
         </div>
+        <PictureValidator :url="user.avatar" :width="200" :height="200" />
         <div class="form-floating mb-4">
           <input
             v-model="user.name"
