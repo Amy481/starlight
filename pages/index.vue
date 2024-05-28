@@ -80,7 +80,9 @@
           <div class="card-body">
             <h5 class="card-title">{{ article.title }}</h5>
           </div>
-          <div class="article-text p-2" :class="{ 'show-content': article.showContent }">
+          <div
+            class="article-text p-2 position-absolute bottom-0 start-0 w-100"
+            :class="{ 'show-content': article.showContent }">
             <p class="card-text text-wrap">
               <i class="bi bi-quote me-2"></i>
               {{ sliceContent(article.content, 150) }}<i class="bi bi-quote quote-left"></i>
@@ -96,7 +98,7 @@
       <NuxtImg
         preload
         src="/starlight-guide.jpg"
-        class="guide-image"
+        class="guide-image position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
         alt="Guide"
         fit="inside"
         sizes="sm:160 md:384 lg:512 xl:640 xxl:768"
@@ -162,12 +164,6 @@
     background: linear-gradient(to bottom, rgb(25, 10, 10) 0%, rgba(208, 143, 133, 0.5) 50%);
   }
   .guide-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
     z-index: -1;
   }
   .badge {
@@ -198,10 +194,6 @@
   }
 
   .article-text {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
     background-color: rgba(255, 255, 255, 0.8);
     transform: translateY(100%);
     transition: transform 0.3s ease-in-out;

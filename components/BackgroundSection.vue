@@ -1,9 +1,9 @@
 <template>
-  <section class="section-background">
+  <section class="section-background position-relative">
     <NuxtImg
       preload
       src="/starlight-background.jpg"
-      class="background-image"
+      class="background-image position-absolute object-fit-cover w-100 h-100"
       alt="Background"
       fit="inside"
       sizes="sm:160 md:384 lg:512 xl:640 xxl:768"
@@ -16,15 +16,10 @@
 </template>
 <style scoped>
   .section-background {
-    position: relative;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 100%);
   }
 
   .background-image {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
     z-index: -1;
   }
 </style>

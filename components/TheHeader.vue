@@ -53,7 +53,7 @@
                   :src="userInfo.avatar"
                   width="50"
                   height="50"
-                  class="avatar me-1"
+                  class="me-1"
                   format="webp"
                   alt="用戶頭像" />
                 {{ userInfo.name }}
