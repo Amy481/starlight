@@ -15,7 +15,7 @@
   const activeTopics = topTagsData.value?.topTags || [];
   const activeArticles = topArticleData.value?.topArticles || [];
   const topArticles = ref(
-    activeArticles.slice(0, 3).map((article) => ({
+    activeArticles.map((article) => ({
       ...article,
       showContent: false,
     }))
