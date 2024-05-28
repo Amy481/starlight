@@ -16,3 +16,12 @@ export interface Tag {
   count: number;
   likes: number;
 }
+
+export interface User {
+  id: string;
+  name: string;
+  avatar: string;
+  email: string;
+  password: string;
+  emailVerified: boolean;
+}
