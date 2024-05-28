@@ -6,5 +6,14 @@ export default defineNuxtConfig({
     "bootstrap-icons/font/bootstrap-icons.css",
     "~/assets/css/main.css",
   ],
-  modules: ["@nuxt/image"],
+  modules: ["@nuxt/image", "@vee-validate/nuxt"],
+  veeValidate: {
+    autoImports: true,
+    componentNames: {
+      Form: "VForm",
+      Field: "VField",
+      FieldArray: "VFieldArray",
+      ErrorMessage: "VErrorMessage",
+    },
+  },
 });
