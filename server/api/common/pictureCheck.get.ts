@@ -10,6 +10,13 @@ export default defineEventHandler(async (event): Promise<PictureCheckResponse> =
   const query = getQuery(event);
   const url = query.url as string;
 
+  // 驗證 URL 是否有效
+  try {
+    new URL(url);
+  } catch (error) {
+    return { valid: false };
+  }
+
   // 返回一個 Promise，異步驗證圖片有效性
   return new Promise((resolve) => {
     // 使用 https 模組發送 HEAD 請求到圖片的 URL
