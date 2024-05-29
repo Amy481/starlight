@@ -133,10 +133,7 @@
             </span>
           </div>
         </div>
-        <button
-          type="submit"
-          class="btn btn-primary btn-lg mt-4"
-          :disabled="!isValidPictureUrl || !meta.validated">
+        <button type="submit" class="btn btn-primary btn-lg mt-4" :disabled="!isValidPictureUrl">
           註冊
         </button>
       </VForm>
