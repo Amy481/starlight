@@ -20,7 +20,17 @@
     emailVerified: false,
   });
   registerValidationRules();
-  const handleRegister = () => {};
+  const handleRegister = async () => {
+    try {
+      const response = await $fetch("/api/user/register", {
+        method: "POST",
+        body: user.value,
+      });
+      navigateTo("/user/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 </script>
 
 <template>
