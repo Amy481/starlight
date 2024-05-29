@@ -1,4 +1,4 @@
-import { Article } from "~/types";
+import { Article } from "@/types";
 import { articles } from "../articles";
 
 export default defineEventHandler(async () => {

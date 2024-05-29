@@ -1,4 +1,4 @@
-import { User } from "~/types";
+import { User } from "@/types";
 import { users } from "./../user";
 import bcrypt from "bcrypt";
 import { uuidv7 as uuid } from "uuidv7";

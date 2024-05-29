@@ -1,4 +1,4 @@
-import { Tag } from "~/types";
+import { Tag } from "@/types";
 import { articles } from "../articles";
 
 export default defineEventHandler(async () => {
