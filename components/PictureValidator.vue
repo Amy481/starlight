@@ -5,23 +5,32 @@
     height: number;
   }>();
 
-  const isValidPictureUrl = ref(true);
+  //將圖片檢查結果回傳
+  const emit = defineEmits<{
+    (event: "update:isValid", isValid: boolean): void;
+  }>();
+
+  const isValidPictureUrl = ref(false);
   const isLoading = ref(false);
 
   const checkPictureUrl = async () => {
-    isLoading.value = true;
-    isValidPictureUrl.value = true;
     if (!props.url) {
       isValidPictureUrl.value = false;
       isLoading.value = false;
+      emit("update:isValid", true);
       return;
     }
+    isLoading.value = true;
+    isValidPictureUrl.value = false;
+    emit("update:isValid", false);
     try {
       const response = await $fetch(
         `/api/common/pictureCheck?url=${encodeURIComponent(props.url)}`
       );
       isValidPictureUrl.value = response.valid;
+      emit("update:isValid", response.valid);
     } catch (error) {
+      emit("update:isValid", false);
       isValidPictureUrl.value = false;
     } finally {
       isLoading.value = false;

@@ -22,6 +22,9 @@
   });
   registerValidationRules();
 
+  //通過 @update:isValid 監聽 "update:isValid" 更新檢查圖片網址是否有效
+  const isValidPictureUrl = ref(true);
+
   const handleRegister = async () => {
     try {
       const response = await $fetch("/api/user/register", {
@@ -66,7 +69,11 @@
             建議尺寸200px*200px，將自動調整為最適大小
           </label>
         </div>
-        <PictureValidator :url="user.avatar" :width="200" :height="200" />
+        <PictureValidator
+          :url="user.avatar"
+          :width="200"
+          :height="200"
+          @update:isValid="isValidPictureUrl = $event" />
         <div class="form-floating mb-4">
           <VField
             v-model="user.name"
@@ -126,7 +133,10 @@
             </span>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-lg mt-4" :disabled="!meta.valid">
+        <button
+          type="submit"
+          class="btn btn-primary btn-lg mt-4"
+          :disabled="!isValidPictureUrl || !meta.validated">
           註冊
         </button>
       </VForm>
