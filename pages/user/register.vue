@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  import { toast } from "vue3-toastify";
   import type { User } from "~/types";
   const { isPasswordVisible, handlePasswordVisible } = usePasswordVisibility();
   useSeoMeta({
@@ -20,14 +21,23 @@
     emailVerified: false,
   });
   registerValidationRules();
+
   const handleRegister = async () => {
     try {
       const response = await $fetch("/api/user/register", {
         method: "POST",
         body: user.value,
       });
-      navigateTo("/user/login");
+      if (response.success) {
+        const notificationStore = useNotificationStore();
+        notificationStore.notificationMessage = "成功註冊帳號！";
+        notificationStore.notificationSuccess();
+        navigateTo("/user/login");
+      } else {
+        toast.error(response.message);
+      }
     } catch (error) {
+      toast.error("出現不可預知的錯誤");
       console.log(error);
     }
   };

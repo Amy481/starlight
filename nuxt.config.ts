@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     "bootstrap-icons/font/bootstrap-icons.css",
     "~/assets/css/main.css",
   ],
-  modules: ["@nuxt/image", "@vee-validate/nuxt"],
+  modules: ["@nuxt/image", "@vee-validate/nuxt", "@pinia/nuxt"],
   veeValidate: {
     autoImports: true,
     componentNames: {
