@@ -22,12 +22,22 @@
     }
   };
 
-  const { data: userProfile } = await useFetch("/api/user/userToken", {
+  interface UserProfileResponse {
+    success: boolean;
+    data?: {
+      id: string;
+      name: string;
+      avatar: string;
+      email: string;
+    };
+  }
+
+  const { data: userProfile } = await useFetch<UserProfileResponse>("/api/user/userToken", {
     lazy: false,
     headers: useRequestHeaders(["cookie"]),
   });
 
-  if (userProfile.value?.success && "data" in userProfile.value) {
+  if (userProfile.value && userProfile.value.success && userProfile.value.data) {
     userStore.login(userProfile.value.data);
   } else {
     userStore.logout();
