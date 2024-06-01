@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   import { toast } from "vue3-toastify";
+  import { getRememberMe, setRememberMe } from "~/utils/rememberMeUtils";
   const { isPasswordVisible, handlePasswordVisible } = usePasswordVisibility();
   useSeoMeta({
     title: "登入 - Starlight 星光平台",
@@ -22,6 +23,20 @@
     password: "",
   });
   registerValidationRules();
+  const userStore = useUserStore();
+
+  onMounted(async () => {
+    try {
+      const data = await getRememberMe();
+      if (data) {
+        loginData.value.email = data.email;
+        loginData.value.password = data.password;
+        rememberMe.value = true;
+      }
+    } catch (error) {
+      console.error("獲取 rememberMe 數據錯誤：", error);
+    }
+  });
 
   const handleEmailLogin = async () => {
     try {
@@ -42,10 +57,14 @@
       };
 
       if (success && data) {
-        const userStore = useUserStore();
         userStore.login(data);
         notificationStore.notificationMessage = message;
         notificationStore.notificationSuccess();
+        if (rememberMe.value) {
+          setRememberMe(loginData.value);
+        } else {
+          localStorage.removeItem("rememberMe");
+        }
         navigateTo("/");
       } else {
         toast.error(message);

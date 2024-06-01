@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   runtimeConfig: {
     jwtSignSecret: process.env.JWT_SIGN_SECRET,
+    rememberMeEncryptionKey: process.env.REMEMBER_ME_ENCRYPTION_KEY,
   },
   css: [
     "bootstrap/dist/css/bootstrap.min.css",
