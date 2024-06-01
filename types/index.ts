@@ -3,12 +3,18 @@ export interface Article {
   cover: string | null;
   title: string;
   content: string;
-  authorId: number;
+  authorId: string;
+  authorName: string;
   date: string;
   tags: string[];
   likes: number;
   replies: number;
   views: number;
+}
+
+export interface ArticleData {
+  articles: Article[];
+  hasMore: boolean;
 }
 
 export interface Tag {

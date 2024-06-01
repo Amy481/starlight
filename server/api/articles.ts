@@ -7,7 +7,8 @@ export const articles = ref([
     title: "01234567890123456789012345678901234567890123456789",
     content:
       "Explore the new features of Drupal 8 and learn how to efficiently manage your site with Drupal's latest version. This guide will provide you with the necessary information to get started quickly.",
-    authorId: 1,
+    authorId: "1",
+    authorName: "Alice Johnson",
     date: "20 minutes ago",
     tags: ["1234567890", "1111111111", "2222222222", "3333333333", "4444444444", "5555555555"],
     likes: 1000,
@@ -20,7 +21,8 @@ export const articles = ref([
     title: "Understanding React Hooks",
     content:
       "React hooks are a powerful new feature in React for sharing logic and state throughout your components. Learn the basics of useState and useEffect to make your React components more functional.",
-    authorId: 2,
+    authorId: "2",
+    authorName: "Bob Lee",
     date: "1 hour ago",
     tags: ["React", "JavaScript", "Web Development"],
     likes: 95,
@@ -33,7 +35,8 @@ export const articles = ref([
     title: "Introduction to Vue 3 Composition API",
     content:
       "Vue 3 brings an exciting new feature, the Composition API, which allows for better code organization and reuse. Discover how to use this API to enhance your Vue applications.",
-    authorId: 3,
+    authorId: "3",
+    authorName: "Carol Smith",
     date: "2 hours ago",
     tags: ["Vue", "JavaScript", "Frontend"],
     likes: 120,
@@ -47,7 +50,8 @@ export const articles = ref([
     title: "Advanced CSS Techniques",
     content:
       "Dive into advanced CSS techniques that can help you solve complex layout issues and enhance your web designs. Learn about grid layouts, flexbox, and custom properties (CSS variables).",
-    authorId: 1,
+    authorId: "1",
+    authorName: "Alice Johnson",
     date: "3 hours ago",
     tags: ["CSS", "Web Design", "Frontend"],
     likes: 200,
@@ -60,7 +64,8 @@ export const articles = ref([
     title: "Getting started with Python",
     content:
       "Python is a versatile language that you can use for web development, data analysis, artificial intelligence, and more. Learn the basics of Python programming in this introductory guide.",
-    authorId: 3,
+    authorId: "3",
+    authorName: "Carol Smith",
     date: "5 hours ago",
     tags: ["Python", "Programming", "Data Science"],
     likes: 180,
@@ -73,7 +78,8 @@ export const articles = ref([
     title: "Building REST APIs with Node.js",
     content:
       "Node.js makes building efficient and scalable web services easier than ever. Learn how to build RESTful APIs with Node.js in this detailed tutorial.",
-    authorId: 2,
+    authorId: "2",
+    authorName: "Bob Lee",
     date: "Today",
     tags: ["Node.js", "Web Development", "API"],
     likes: 165,
@@ -87,7 +93,8 @@ export const articles = ref([
     title: "Introduction to Machine Learning",
     content:
       "Machine learning is transforming the tech industry. Understand the basics of machine learning and how to implement simple models using Python.",
-    authorId: 1,
+    authorId: "1",
+    authorName: "Alice Johnson",
     date: "Yesterday",
     tags: ["Machine Learning", "Python", "AI"],
     likes: 222,
@@ -100,7 +107,8 @@ export const articles = ref([
     title: "Principles of UI/UX Design",
     content:
       "Good design is essential for the success of a web application. Learn about the principles of UI/UX design and how to apply them to create engaging user experiences.",
-    authorId: 2,
+    authorId: "2",
+    authorName: "Bob Lee",
     date: "1 week ago",
     tags: ["Design", "UI", "UX", "Web Development"],
     likes: 143,
@@ -113,7 +121,8 @@ export const articles = ref([
     title: "Cloud Computing Basics",
     content:
       "Cloud computing offers powerful solutions to big data problems. Learn about the fundamentals of cloud computing and its applications in various industries.",
-    authorId: 3,
+    authorId: "3",
+    authorName: "Carol Smith",
     date: "2 weeks ago",
     tags: ["Cloud", "Technology", "Computing"],
     likes: 171,
@@ -126,7 +135,8 @@ export const articles = ref([
     title: "Cybersecurity Fundamentals",
     content:
       "Protecting information is crucial in the digital age. Discover the fundamentals of cybersecurity and learn how to safeguard your systems against cyber threats.",
-    authorId: 1,
+    authorId: "1",
+    authorName: "Alice Johnson",
     date: "3 weeks ago",
     tags: ["Cybersecurity", "IT", "Security"],
     likes: 190,
@@ -139,7 +149,8 @@ export const articles = ref([
     title: "Exploring Data Structures in JavaScript",
     content:
       "Learn about various data structures used in JavaScript and their applications to enhance your coding skills and algorithmic understanding.",
-    authorId: 2,
+    authorId: "2",
+    authorName: "Bob Lee",
     date: "10 minutes ago",
     tags: ["JavaScript", "Data Structures", "Coding"],
     likes: 10,
@@ -152,7 +163,8 @@ export const articles = ref([
     title: "The Future of AI and Machine Learning",
     content:
       "Dive deep into the advancements and future prospects of AI and Machine Learning, and how they're shaping our technology landscape.",
-    authorId: 3,
+    authorId: "3",
+    authorName: "Carol Smith",
     date: "30 minutes ago",
     tags: ["AI", "Machine Learning", "Technology"],
     likes: 20,
@@ -165,7 +177,8 @@ export const articles = ref([
     title: "Introduction to Quantum Computing",
     content:
       "Quantum Computing is set to revolutionize our problem-solving capacities. Learn the basics of quantum mechanics and computing in this introductory article.",
-    authorId: 3,
+    authorId: "3",
+    authorName: "Carol Smith",
     date: "1 hour ago",
     tags: ["Quantum Computing", "Physics", "Innovation"],
     likes: 15,
@@ -178,7 +191,8 @@ export const articles = ref([
     title: "Understanding Cryptocurrency",
     content:
       "Explore the world of cryptocurrencies and how they operate under the hood, including the blockchain technology that powers them.",
-    authorId: 3,
+    authorId: "3",
+    authorName: "Carol Smith",
     date: "2 hours ago",
     tags: ["Blockchain", "Cryptocurrency", "Finance"],
     likes: 30,
@@ -191,7 +205,8 @@ export const articles = ref([
     title: "Getting Started with Docker",
     content:
       "Docker is a key tool for software deployment. This guide covers the basics of Docker, including its benefits and how to get started with containers.",
-    authorId: 3,
+    authorId: "3",
+    authorName: "Carol Smith",
     date: "Today",
     tags: ["Docker", "DevOps", "Software Deployment"],
     likes: 22,
@@ -204,7 +219,8 @@ export const articles = ref([
     title: "Web Security Essentials",
     content:
       "Understanding web security is crucial for developers. Learn about common security threats and how to protect your applications.",
-    authorId: 3,
+    authorId: "3",
+    authorName: "Carol Smith",
     date: "Yesterday",
     tags: ["Web Security", "Cybersecurity", "Development"],
     likes: 25,
@@ -217,7 +233,8 @@ export const articles = ref([
     title: "Advanced JavaScript Techniques",
     content:
       "Take your JavaScript skills to the next level with these advanced techniques that can help you write cleaner and more efficient code.",
-    authorId: 3,
+    authorId: "3",
+    authorName: "Carol Smith",
     date: "1 week ago",
     tags: ["JavaScript", "Advanced", "Programming"],
     likes: 40,
@@ -230,7 +247,8 @@ export const articles = ref([
     title: "Exploring the Angular Framework",
     content:
       "Discover the features of Angular and how it differs from other JavaScript frameworks to build powerful and dynamic web applications.",
-    authorId: 3,
+    authorId: "3",
+    authorName: "Carol Smith",
     date: "2 weeks ago",
     tags: ["Angular", "Web Development", "Framework"],
     likes: 18,
@@ -243,7 +261,8 @@ export const articles = ref([
     title: "The Rise of Mobile Gaming",
     content:
       "Mobile gaming continues to grow at an unprecedented rate. Understand the factors driving this growth and the future of the industry.",
-    authorId: 3,
+    authorId: "3",
+    authorName: "Carol Smith",
     date: "3 weeks ago",
     tags: ["Gaming", "Mobile", "Technology"],
     likes: 50,
@@ -256,7 +275,8 @@ export const articles = ref([
     title: "Effective Project Management Strategies",
     content:
       "Project management is key to successful software development. Learn about effective strategies and tools to manage your projects efficiently.",
-    authorId: 3,
+    authorId: "3",
+    authorName: "Carol Smith",
     date: "1 month ago",
     tags: ["Project Management", "Software Development", "Strategy"],
     likes: 35,
