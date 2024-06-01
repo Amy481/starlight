@@ -6,10 +6,17 @@
   const sortBy = ref("");
   const sortOrder = ref("");
   const isLoading = ref(false);
+
   const fetchArticles = async () => {
     isLoading.value = true;
     try {
-      const response = await $fetch("/api/article/getFilteredArticles");
+      const response = await $fetch("/api/article/getFilteredArticles", {
+        method: "GET",
+        query: {
+          sortBy: sortBy.value,
+          sortOrder: sortOrder.value,
+        },
+      });
       articles.value = response.articles;
     } catch (error) {
       console.error("獲取文章列表失敗：", error);
@@ -17,10 +24,14 @@
       isLoading.value = false;
     }
   };
+
   onMounted(() => {
     fetchArticles();
   });
-  const sortArticles = async () => {};
+
+  const sortArticles = async () => {
+    fetchArticles();
+  };
 </script>
 
 <template>
