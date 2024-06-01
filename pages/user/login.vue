@@ -24,16 +24,12 @@
   registerValidationRules();
 
   const handleEmailLogin = async () => {
-    const { data, error } = await useFetch("/api/user/login", {
-      method: "POST",
-      body: loginData.value,
-    });
+    try {
+      const { success, message } = await $fetch("/api/user/login", {
+        method: "POST",
+        body: loginData.value,
+      });
 
-    if (error.value) {
-      console.error("登入失敗", error.value);
-      toast.error(error.value.message || "登入時發生錯誤，請稍後再試。");
-    } else {
-      const { success, message } = data.value as { success: boolean; message: string };
       if (success) {
         notificationStore.notificationMessage = message;
         notificationStore.notificationSuccess();
@@ -41,6 +37,9 @@
       } else {
         toast.error(message);
       }
+    } catch (error) {
+      console.error("登入失敗", error);
+      toast.error((error as Error).message || "登入時發生錯誤，請稍後再試。");
     }
   };
 </script>

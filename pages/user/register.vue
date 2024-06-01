@@ -27,20 +27,20 @@
 
   const handleRegister = async () => {
     try {
-      const response = await $fetch("/api/user/register", {
+      const { success, message } = await $fetch("/api/user/register", {
         method: "POST",
         body: user.value,
       });
-      if (response.success) {
+      if (success) {
         const notificationStore = useNotificationStore();
         notificationStore.notificationMessage = "成功註冊帳號！";
         notificationStore.notificationSuccess();
         navigateTo("/user/login");
       } else {
-        toast.error(response.message);
+        toast.error(message);
       }
     } catch (error) {
-      toast.error("出現不可預知的錯誤");
+      toast.error((error as Error).message || "出現不可預知的錯誤");
       console.log(error);
     }
   };
