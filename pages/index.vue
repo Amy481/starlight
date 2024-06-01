@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+  import { toast } from "vue3-toastify";
+
   useSeoMeta({
     title: "Starlight 星光 - 讓你的創作雲遊星海",
     ogTitle: "Starlight 星光 - 發現和分享創意",
@@ -9,6 +11,12 @@
     ogImage: "/starlight-background.jpg",
     twitterCard: "summary_large_image",
   });
+
+  const notificationStore = useNotificationStore();
+  if (notificationStore.isNotification) {
+    notificationStore.notificationFail();
+    toast.success(notificationStore.notificationMessage);
+  }
 
   const { data: topArticleData } = await useFetch("/api/article/topArticles");
   const { data: topTagsData } = await useFetch("/api/tag/topTags");
