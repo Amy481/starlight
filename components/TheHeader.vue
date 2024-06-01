@@ -1,7 +1,26 @@
 <script lang="ts" setup>
+  import { toast } from "vue3-toastify";
+
   const userStore = useUserStore();
   const { isLogin, userInfo } = storeToRefs(userStore);
-  const handleLogout = async () => {};
+
+  const handleLogout = async () => {
+    try {
+      const { success } = await $fetch("/api/user/logout", {
+        method: "DELETE",
+      });
+
+      if (success) {
+        userStore.logout();
+        toast.success("登出成功");
+      } else {
+        toast.error("登出失敗");
+      }
+    } catch (error) {
+      console.error("登出失敗", error);
+      toast.error((error as Error).message || "登出時發生錯誤，請稍後再試。");
+    }
+  };
 </script>
 
 <template>
