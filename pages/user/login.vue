@@ -25,12 +25,25 @@
 
   const handleEmailLogin = async () => {
     try {
-      const { success, message } = await $fetch("/api/user/login", {
+      const response = await $fetch("/api/user/login", {
         method: "POST",
         body: loginData.value,
       });
 
-      if (success) {
+      const { success, message, data } = response as {
+        success: boolean;
+        message: string;
+        data?: {
+          id: string;
+          name: string;
+          avatar: string;
+          email: string;
+        };
+      };
+
+      if (success && data) {
+        const userStore = useUserStore();
+        userStore.login(data);
         notificationStore.notificationMessage = message;
         notificationStore.notificationSuccess();
         navigateTo("/");

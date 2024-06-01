@@ -1,12 +1,6 @@
 <script lang="ts" setup>
-  const userInfo = ref({
-    id: "1",
-    name: "Alice Johnson",
-    avatar: "https://picsum.photos/id/1011/200/200",
-    email: "alice.johnson@example.com",
-    password: "abc123",
-  });
-  const isLogin = ref(false);
+  const userStore = useUserStore();
+  const { isLogin, userInfo } = storeToRefs(userStore);
   const handleLogout = async () => {};
 </script>
 
