@@ -6,6 +6,8 @@
   const sortBy = ref("");
   const sortOrder = ref("");
   const isLoading = ref(false);
+  const page = ref(1);
+  const limit = 10;
 
   const fetchArticles = async () => {
     isLoading.value = true;
@@ -13,11 +15,15 @@
       const response = await $fetch("/api/article/getFilteredArticles", {
         method: "GET",
         query: {
+          page: page.value,
+          limit: limit,
           sortBy: sortBy.value,
           sortOrder: sortOrder.value,
         },
       });
-      articles.value = response.articles;
+      articles.value = [...articles.value, ...response.articles];
+      hasMore.value = response.hasMore;
+      page.value++;
     } catch (error) {
       console.error("獲取文章列表失敗：", error);
     } finally {
@@ -27,10 +33,25 @@
 
   onMounted(() => {
     fetchArticles();
+    window.addEventListener("scroll", handleScroll);
+  });
+
+  onUnmounted(() => {
+    window.removeEventListener("scroll", handleScroll);
   });
 
   const sortArticles = async () => {
-    fetchArticles();
+    page.value = 1;
+    articles.value = [];
+    await fetchArticles();
+  };
+
+  const handleScroll = async () => {
+    const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    const scrollPosition = window.scrollY + window.innerHeight;
+    if (scrollPosition + 1 >= scrollHeight) {
+      await fetchArticles();
+    }
   };
 </script>
 

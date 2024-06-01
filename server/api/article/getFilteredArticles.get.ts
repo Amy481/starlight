@@ -1,10 +1,12 @@
 import { articles } from "../articles";
-import { Article } from "~/types";
+import { ArticleData, Article } from "~/types";
 
 type ArticleKey = keyof Article;
 
-export default defineEventHandler((event) => {
+export default defineEventHandler((event): ArticleData => {
   const query = getQuery(event);
+  const page = parseInt(query.page as string) || 1;
+  const limit = parseInt(query.limit as string) || 10;
   const sortBy = (query.sortBy as ArticleKey) || "id";
   const sortOrder = (query.sortOrder as string) || "desc";
 
@@ -28,7 +30,12 @@ export default defineEventHandler((event) => {
     }
   });
 
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  const articleList = sortedArticles.slice(startIndex, endIndex);
+
   return {
-    articles: sortedArticles,
+    articles: articleList,
+    hasMore: endIndex < sortedArticles.length,
   };
 });
