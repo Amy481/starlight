@@ -21,6 +21,17 @@
       toast.error((error as Error).message || "登出時發生錯誤，請稍後再試。");
     }
   };
+
+  const { data: userProfile } = await useFetch("/api/user/userToken", {
+    lazy: false,
+    headers: useRequestHeaders(["cookie"]),
+  });
+
+  if (userProfile.value?.success && "data" in userProfile.value) {
+    userStore.login(userProfile.value.data);
+  } else {
+    userStore.logout();
+  }
 </script>
 
 <template>

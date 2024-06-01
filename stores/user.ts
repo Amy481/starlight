@@ -11,7 +11,6 @@ export const useUserStore = defineStore("user", () => {
     isLogin.value = false;
     userInfo.value = { id: "", name: "", avatar: "", email: "" };
   };
-
   return {
     isLogin,
     userInfo,
