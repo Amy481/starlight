@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
   if (!title || !content || !authorId) {
     throw createError({
       statusCode: 400,
-      statusMessage: "缺少必需的詩入內容",
+      statusMessage: "缺少必需的輸入內容",
     });
   }
 

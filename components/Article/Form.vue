@@ -14,6 +14,17 @@
   const userStore = useUserStore();
   const isValidPictureUrl = ref(true);
 
+  if (isEditMode) {
+    const { data: responseArticle } = await useFetch(
+      `/api/article/getArticle?id=${route.params.id}`
+    );
+
+    article.value.title = responseArticle.value.title || "";
+    article.value.cover = responseArticle.value.cover || "";
+    article.value.content = responseArticle.value.content || "";
+    article.value.tags = responseArticle.value.tags || [];
+    article.value.authorId = responseArticle.value.authorId || "";
+  }
   const newTag = ref("");
   articleValidationRules();
   const errorTagMessage = ref("");
@@ -53,15 +64,26 @@
 
   const submitArticle = async () => {
     try {
-      const response = await $fetch("/api/article/createArticle", {
-        method: "POST",
-        body: {
-          ...article.value,
-          authorId,
-          authorName,
-        },
-      });
-
+      let response;
+      if (isEditMode) {
+        const id = route.params.id;
+        response = await $fetch(`/api/article/updateArticle`, {
+          method: "PATCH",
+          body: {
+            id,
+            ...article.value,
+          },
+        });
+      } else {
+        response = await $fetch("/api/article/createArticle", {
+          method: "POST",
+          body: {
+            ...article.value,
+            authorId,
+            authorName,
+          },
+        });
+      }
       if (response.success) {
         article.authorId = "";
         article.title = "";
