@@ -33,11 +33,17 @@
   };
 
   // 獲取初始文章數據
-  const { data: initialArticleData } = await useFetch<ArticleData>(query.value);
+  const { data: initialArticleData, error } = await useFetch<ArticleData>(query.value);
   if (initialArticleData.value) {
     // 如果成功獲取初始文章數據，更新文章列表和 hasMore 狀態
     articles.value = initialArticleData.value.articles;
     hasMore.value = initialArticleData.value.hasMore;
+  }
+  if (error.value) {
+    throw createError({
+      statusCode: error.value.statusCode,
+      message: error.value.statusMessage,
+    });
   }
 
   // 獲取指定頁碼和排序條件的文章列表

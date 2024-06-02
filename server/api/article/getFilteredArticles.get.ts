@@ -18,9 +18,21 @@ export default defineEventHandler((event): ArticleData => {
   let filteredArticles = articles.value;
   if (tag) {
     filteredArticles = filteredArticles.filter((article) => article.tags.includes(tag));
+    if (filteredArticles.length === 0) {
+      throw createError({
+        statusCode: 404,
+        message: "找不到與此標籤相關的文章",
+      });
+    }
   }
   if (userId) {
     filteredArticles = filteredArticles.filter((article) => article.authorId === userId);
+    if (filteredArticles.length === 0) {
+      throw createError({
+        statusCode: 404,
+        message: "找不到此作者的文章",
+      });
+    }
   }
 
   // 根據排序條件對文章進行排序
