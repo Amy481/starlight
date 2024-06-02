@@ -6,7 +6,7 @@ export default defineEventHandler((event) => {
   if (!articleId) {
     throw createError({
       statusCode: 400,
-      statusMessage: "○缺少文章ID",
+      statusMessage: "缺少文章ID",
     });
   }
 

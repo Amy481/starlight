@@ -34,3 +34,21 @@ export function registerValidationRules() {
     return true;
   });
 }
+
+export function articleValidationRules() {
+  defineRule("title", (value: string) => {
+    if (!value) {
+      return "必須輸入標題！";
+    }
+    if (value.length > 50) {
+      return "標題不可超過50個字！";
+    }
+    return true;
+  });
+  defineRule("content", (value: string) => {
+    if (!value) {
+      return "必須輸入文章內容！";
+    }
+    return true;
+  });
+}
