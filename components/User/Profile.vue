@@ -9,7 +9,9 @@
     email: string;
   } | null>(null);
 
-  user.value = userInfo.value;
+  onMounted(() => {
+    user.value = userInfo.value;
+  });
 </script>
 
 <template>
@@ -37,7 +39,6 @@
         <i class="bi bi-chat-left-text me-1"></i>訊息
       </button>
     </div>
-    <!-- SIDEBAR MENU -->
     <ul class="nav flex-column">
       <li class="nav-item mb-1">
         <NuxtLink class="nav-link" :to="`/user/${user.id}`">

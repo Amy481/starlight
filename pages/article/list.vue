@@ -25,12 +25,14 @@
       <div class="my-2">
         <div class="row">
           <div class="col-12">
-            <NuxtLink
-              v-if="!isLogin"
-              class="btn btn-lg btn-block btn-outline-warning w-100"
-              to="/article/create">
-              <i class="bi bi-plus-lg me-1"></i>發表我的創作
-            </NuxtLink>
+            <client-only>
+              <NuxtLink
+                v-if="!isLogin"
+                class="btn btn-lg btn-block btn-outline-warning w-100"
+                to="/article/create">
+                <i class="bi bi-plus-lg me-1"></i>發表我的創作
+              </NuxtLink>
+            </client-only>
           </div>
         </div>
       </div>
