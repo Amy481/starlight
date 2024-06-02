@@ -1,6 +1,10 @@
 <script setup lang="ts">
   import type { Article, ArticleData } from "~/types";
 
+  const props = defineProps<{
+    tag?: string;
+  }>();
+
   const articles = ref<Article[]>([]);
   const hasMore = ref(true);
   const sortBy = ref("");
@@ -9,10 +13,13 @@
   const page = ref(1);
 
   // 查詢字符串
-  const query = computed(
-    () =>
-      `/api/article/getFilteredArticles?page=${page.value}&sortBy=${sortBy.value}&sortOrder=${sortOrder.value}`
-  );
+  const query = computed(() => {
+    let queryString = `/api/article/getFilteredArticles?page=${page.value}&sortBy=${sortBy.value}&sortOrder=${sortOrder.value}`;
+    if (props.tag) {
+      queryString += `&tag=${props.tag}`;
+    }
+    return queryString;
+  });
 
   const route = useRoute();
   const router = useRouter();
@@ -121,9 +128,11 @@
   <div v-else>
     <div v-for="(article, index) in articles" :key="index" class="card border-1 mt-3 shadow">
       <div class="card-body">
-        <h3 class="article-title text-wrap">
-          {{ sliceContent(article.title, 50) }}
-        </h3>
+        <NuxtLink :to="'/article/' + article.id">
+          <h3 class="article-title text-wrap">
+            {{ sliceContent(article.title, 50) }}
+          </h3>
+        </NuxtLink>
         <div class="mb-1 text-muted small">
           <span>
             <NuxtLink :to="`/user/${article.authorId}`">{{ article.authorName }}</NuxtLink>

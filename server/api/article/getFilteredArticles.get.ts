@@ -11,9 +11,16 @@ export default defineEventHandler((event): ArticleData => {
   const limit = 10;
   const sortBy = (query.sortBy as ArticleKey) || "id";
   const sortOrder = (query.sortOrder as string) || "desc";
+  const tag = query.tag as string;
+
+  // 根據查詢條件過濾文章
+  let filteredArticles = articles.value;
+  if (tag) {
+    filteredArticles = filteredArticles.filter((article) => article.tags.includes(tag));
+  }
 
   // 根據排序條件對文章進行排序
-  const sortedArticles = [...articles.value].sort((a, b) => {
+  const sortedArticles = [...filteredArticles].sort((a, b) => {
     // 獲取文章 a 和 b 在 sortBy 屬性上的值
     const valueA = a[sortBy];
     const valueB = b[sortBy];
