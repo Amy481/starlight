@@ -1,4 +1,6 @@
 <script setup>
+  import { toast } from "vue3-toastify";
+
   const article = ref({
     authorId: "",
     title: "",
@@ -7,6 +9,9 @@
     tags: [],
   });
 
+  const route = useRoute();
+  const isEditMode = !!route.params.id;
+  const userStore = useUserStore();
   const isValidPictureUrl = ref(true);
 
   const newTag = ref("");
@@ -43,7 +48,42 @@
     article.value.tags.splice(index, 1);
   };
 
-  const submitArticle = async () => {};
+  const authorId = userStore.userInfo.id;
+  const authorName = userStore.userInfo.name;
+
+  const submitArticle = async () => {
+    try {
+      const response = await $fetch("/api/article/createArticle", {
+        method: "POST",
+        body: {
+          ...article.value,
+          authorId,
+          authorName,
+        },
+      });
+
+      if (response.success) {
+        article.authorId = "";
+        article.title = "";
+        article.content = "";
+        article.cover = "";
+        article.tags = [];
+
+        const useNotification = useNotificationStore();
+        if (isEditMode) {
+          useNotification.notificationMessage = "成功更新文章！";
+        } else {
+          useNotification.notificationMessage = "成功新增文章！";
+        }
+        useNotification.notificationSuccess();
+        navigateTo(`/article/${response.article.id}`);
+      } else {
+        toast.error("新增/編輯文章失敗");
+      }
+    } catch (error) {
+      console.error("新增/編輯文章失敗", error);
+    }
+  };
 </script>
 
 <template>

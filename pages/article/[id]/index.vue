@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+  import { toast } from "vue3-toastify";
+
   const route = useRoute();
   const articleId = route.params.id;
   const { data: article, error } = await useFetch(`/api/article/getArticle?id=${articleId}`);
@@ -17,6 +19,12 @@
     ogImage: article.value?.cover ?? "/starlight-background.jpg",
     twitterCard: "summary_large_image",
   });
+
+  const useNotification = useNotificationStore();
+  if (useNotification.isNotification) {
+    useNotification.notificationFail();
+    toast.success(useNotification.notificationMessage);
+  }
 
   const isArticleAuthor = ref(false);
   const useUser = useUserStore();
