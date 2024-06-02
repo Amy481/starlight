@@ -1,6 +1,12 @@
 <script lang="ts" setup>
+  import type { User } from "~/types";
+
+  const props = defineProps<{
+    userId?: string;
+  }>();
+
   const userStore = useUserStore();
-  const { userInfo } = storeToRefs(userStore);
+  const { userInfo, isLogin } = storeToRefs(userStore);
 
   const user = ref<{
     id: string;
@@ -9,8 +15,15 @@
     email: string;
   } | null>(null);
 
-  onMounted(() => {
-    user.value = userInfo.value;
+  onMounted(async () => {
+    if (props.userId) {
+      // 如果有傳入 userId，則根據 userId 獲取創作者資料
+      const data = await $fetch<User>(`/api/user/${props.userId}`);
+      user.value = data;
+    } else if (isLogin.value) {
+      // 如果是主頁面且使用者已登入，則使用 store 中的使用者資料
+      user.value = userInfo.value;
+    }
   });
 </script>
 

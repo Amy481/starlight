@@ -12,11 +12,15 @@ export default defineEventHandler((event): ArticleData => {
   const sortBy = (query.sortBy as ArticleKey) || "id";
   const sortOrder = (query.sortOrder as string) || "desc";
   const tag = query.tag as string;
+  const userId = query.userId as string;
 
   // 根據查詢條件過濾文章
   let filteredArticles = articles.value;
   if (tag) {
     filteredArticles = filteredArticles.filter((article) => article.tags.includes(tag));
+  }
+  if (userId) {
+    filteredArticles = filteredArticles.filter((article) => article.authorId === userId);
   }
 
   // 根據排序條件對文章進行排序

@@ -1,10 +1,22 @@
-import { Tag } from "@/types";
+import { Tag } from "~/types";
 import { articles } from "../articles";
 
-export default defineEventHandler(async () => {
-  const extractTagsWithLikes = (): Tag[] => {
+interface TopTagsResponse {
+  topTags: Tag[];
+}
+
+export default defineEventHandler(async (event): Promise<TopTagsResponse> => {
+  const query = getQuery(event);
+  const userId = query.userId as string;
+
+  const extractTagsWithLikes = (userId?: string): Tag[] => {
+    let filteredArticles = articles.value;
+    if (userId) {
+      filteredArticles = filteredArticles.filter((article) => article.authorId === userId);
+    }
+
     // 使用 flatMap 將每篇文章的標籤轉換為 { tag, likes } 對象的陣列
-    const tagsWithLikes = articles.value.flatMap((article) =>
+    const tagsWithLikes = filteredArticles.flatMap((article) =>
       article.tags.map((tag) => ({ tag, likes: article.likes }))
     );
 
@@ -20,12 +32,19 @@ export default defineEventHandler(async () => {
       return tagAccumulator;
     }, {});
 
-    // 對結果進行排序，按照總讚數降序排列，並取前 10 個
-    return Object.values(tagStats)
-      .sort((a, b) => b.likes - a.likes)
-      .slice(0, 10);
+    // 對結果進行排序
+    const sortedTags = Object.values(tagStats);
+    if (userId) {
+      // 如果有傳入使用者 ID，則按照出現次數降序排列
+      sortedTags.sort((a, b) => b.count - a.count);
+    } else {
+      // 如果沒有傳入使用者 ID，則按照總讚數降序排列
+      sortedTags.sort((a, b) => b.likes - a.likes);
+    }
+
+    return sortedTags.slice(0, 10);
   };
 
-  const topTags = extractTagsWithLikes();
+  const topTags = extractTagsWithLikes(userId);
   return { topTags };
 });

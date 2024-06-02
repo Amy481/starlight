@@ -2,6 +2,7 @@
   import type { Article, ArticleData } from "~/types";
 
   const props = defineProps<{
+    userId?: string;
     tag?: string;
   }>();
 
@@ -17,6 +18,9 @@
     let queryString = `/api/article/getFilteredArticles?page=${page.value}&sortBy=${sortBy.value}&sortOrder=${sortOrder.value}`;
     if (props.tag) {
       queryString += `&tag=${props.tag}`;
+    }
+    if (props.userId) {
+      queryString += `&userId=${props.userId}`;
     }
     return queryString;
   });
@@ -38,6 +42,9 @@
 
   // 獲取指定頁碼和排序條件的文章列表
   const fetchArticles = async (pageNum: number) => {
+    if (hasMore.value === false) {
+      return;
+    }
     isLoading.value = true;
     try {
       // 獲取新的文章數據
