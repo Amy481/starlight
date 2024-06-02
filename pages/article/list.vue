@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+  import { toast } from "vue3-toastify";
+
   useSeoMeta({
     title: "熱門創作 - 探索最受歡迎的文章",
     ogTitle: "熱門創作 - Starlight 星光平台",
@@ -12,6 +14,12 @@
 
   const userStore = useUserStore();
   const { isLogin } = storeToRefs(userStore);
+
+  const useNotification = useNotificationStore();
+  if (useNotification.isNotification) {
+    useNotification.notificationFail();
+    toast.success(useNotification.notificationMessage);
+  }
 </script>
 
 <template>

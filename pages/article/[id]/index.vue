@@ -27,7 +27,23 @@
     isArticleAuthor.value = false;
   }
 
-  const deleteArticle = async () => {};
+  const deleteArticle = async () => {
+    try {
+      const response = await $fetch(`/api/article/deleteArticle?id=${route.params.id}`, {
+        method: "DELETE",
+      });
+      if (response.success) {
+        const useNotification = useNotificationStore();
+        useNotification.notificationMessage = response.message;
+        useNotification.notificationSuccess();
+        navigateTo("/article/list");
+      } else {
+        console.error("刪除文章失敗");
+      }
+    } catch (error) {
+      console.error("刪除文章錯誤:", error);
+    }
+  };
 </script>
 
 <template>
