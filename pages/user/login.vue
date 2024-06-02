@@ -12,6 +12,10 @@
     ogImage: "/starlight-background.jpg",
     twitterCard: "summary_large_image",
   });
+  definePageMeta({
+    middleware: "auth",
+  });
+
   const notificationStore = useNotificationStore();
   if (notificationStore.isNotification) {
     notificationStore.notificationFail();

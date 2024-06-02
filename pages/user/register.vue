@@ -11,6 +11,9 @@
     ogImage: "/starlight-background.jpg",
     twitterCard: "summary_large_image",
   });
+  definePageMeta({
+    middleware: "auth",
+  });
 
   const user: Ref<User> = ref({
     id: "",
