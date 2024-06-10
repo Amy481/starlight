@@ -10,7 +10,7 @@
     (event: "update:isValid", isValid: boolean): void;
   }>();
 
-  const isValidPictureUrl = ref(false);
+  const isValidPictureUrl = ref(true);
   const isLoading = ref(false);
 
   const checkPictureUrl = async () => {
@@ -48,7 +48,7 @@
       </div>
     </div>
     <div v-else-if="isValidPictureUrl && url" class="d-flex justify-content-center">
-      <figure class="figure flex-column mb-4">
+      <figure class="figure flex-column mb-4 article-cover">
         <NuxtImg
           :src="url"
           :width="width"
@@ -65,3 +65,20 @@
     </div>
   </div>
 </template>
+<style>
+  .article-cover {
+    width: 100%;
+    padding-bottom: 75%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .article-cover img {
+    width: 100%;
+    height: 56.25%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>

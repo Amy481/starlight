@@ -6,7 +6,7 @@ export default defineEventHandler((event) => {
   if (!articleId) {
     throw createError({
       statusCode: 400,
-      statusMessage: "缺少文章ID",
+      message: "缺少文章ID",
     });
   }
 
@@ -15,7 +15,7 @@ export default defineEventHandler((event) => {
   if (!article) {
     throw createError({
       statusCode: 404,
-      statusMessage: "找不到文章",
+      message: "找不到文章",
     });
   }
 

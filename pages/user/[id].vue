@@ -3,10 +3,8 @@
 
   const route = useRoute();
   const authorId = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id;
-  const author = ref<User | null>(null);
-  onMounted(async () => {
-    author.value = await $fetch(`/api/user/${authorId}`);
-  });
+
+  const { data: author } = await useFetch<User | null>(`/api/user/getUser?userId=${authorId}`);
 
   useSeoMeta({
     title: `${author.value?.name}的創作`,

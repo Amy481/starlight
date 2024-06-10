@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { toast } from "vue3-toastify";
-  import { getRememberMe, setRememberMe } from "~/utils/rememberMeUtils";
+  const { setRememberMe, getRememberMe } = useRememberMe();
   const { isPasswordVisible, handlePasswordVisible } = usePasswordVisibility();
   useSeoMeta({
     title: "登入 - Starlight 星光平台",
