@@ -1,14 +1,10 @@
 <script lang="ts" setup>
   import { toast } from "vue3-toastify";
-
   const route = useRoute();
   const articleId = route.params.id;
   const { data: article, error } = await useFetch(`/api/article/getArticle?id=${articleId}`);
-  if (error.value) {
-    throw createError({
-      statusCode: error.value.statusCode,
-      message: error.value.statusMessage,
-    });
+  if (!article.value) {
+    throw showError({ statusCode: 404 });
   }
 
   useSeoMeta({
@@ -98,7 +94,7 @@
           <figure v-if="article?.cover != null" class="article-cover mb-4 text-center">
             <NuxtImg
               :src="article?.cover"
-              class="img-fluid rounded mx-auto w-100 h-100"
+              class="img-fluid rounded mx-auto"
               :alt="article?.title"
               quality="90"
               format="webp"
@@ -134,7 +130,18 @@
 
   .article-cover {
     width: 100%;
-    height: 600px;
+    padding-bottom: 56.25%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .article-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
   .comments-list .comment-item {
