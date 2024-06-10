@@ -10,7 +10,7 @@
     (event: "update:isValid", isValid: boolean): void;
   }>();
 
-  const isValidPictureUrl = ref(false);
+  const isValidPictureUrl = ref(true);
   const isLoading = ref(false);
 
   const checkPictureUrl = async () => {
