@@ -10,7 +10,7 @@ export default defineEventHandler((event): User | null => {
   if (!user) {
     throw createError({
       statusCode: 404,
-      statusMessage: "User not found",
+      message: "找不到使用者",
     });
   }
 

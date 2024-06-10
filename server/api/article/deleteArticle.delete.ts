@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   if (!articleId) {
     throw createError({
       statusCode: 400,
-      statusMessage: "缺少文章ID",
+      message: "缺少文章ID",
     });
   }
 
@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
   if (articleIndex === -1) {
     throw createError({
       statusCode: 404,
-      statusMessage: "找不到文章",
+      message: "找不到文章",
     });
   }
 
