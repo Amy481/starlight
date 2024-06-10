@@ -74,6 +74,8 @@
   const sortArticles = async () => {
     if (sortBy.value && sortOrder.value) {
       page.value = 1;
+      hasMore.value = true;
+
       // 更新路由查詢參數
       updateQuery({
         sortBy: sortBy.value,
