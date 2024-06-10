@@ -13,7 +13,9 @@ export const useUserStore = defineStore("user", () => {
     isLogin.value = false;
     userInfo.value = { id: "", name: "", avatar: "", email: "" };
     rememberMe.value = false;
+    rememberMeData.value = { email: "", password: "" };
   };
+
   return {
     isLogin,
     userInfo,
