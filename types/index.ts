@@ -8,6 +8,7 @@ export interface Article {
   date: string;
   tags: string[];
   likes: number;
+  likedByUsers: string[];
   replies: number;
   views: number;
 }
