@@ -4,6 +4,25 @@
   const props = defineProps<{
     article: Article;
   }>();
+
+  const userStore = useUserStore();
+
+  const isLiked = computed(() => props.article.likedByUsers.includes(userStore.userInfo.id));
+
+  const likeArticle = async () => {
+    if (!userStore.isLogin) {
+      return;
+    }
+    const { likes, likedByUsers } = await $fetch("/api/article/likeArticle", {
+      method: "POST",
+      body: {
+        id: props.article.id,
+        userId: userStore.userInfo.id,
+      },
+    });
+    props.article.likes = likes;
+    props.article.likedByUsers = likedByUsers;
+  };
 </script>
 
 <template>
@@ -37,7 +56,10 @@
           >
         </div>
         <p class="text-muted small text-end p-0 m-0">
-          <span class="mx-1"><i class="bi bi-heart me-1"></i>{{ formatCount(article.likes) }}</span>
+          <span class="mx-1" @click="likeArticle">
+            <i :class="['bi', 'me-1', isLiked ? 'bi-heart-fill text-danger' : 'bi-heart']"></i
+            >{{ formatCount(article.likes) }}
+          </span>
           <span class="mx-1"><i class="bi bi-eye me-1"></i> {{ formatCount(article.views) }} </span>
         </p>
       </div>
