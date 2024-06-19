@@ -19,5 +19,7 @@ export default defineEventHandler((event) => {
     });
   }
 
+  article.views += 1;
+
   return article;
 });
