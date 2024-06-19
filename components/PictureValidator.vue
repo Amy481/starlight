@@ -68,14 +68,14 @@
 <style>
   .article-cover {
     width: 100%;
-    padding-bottom: 75%;
+    padding-bottom: 56.25%;
     position: relative;
     overflow: hidden;
   }
 
   .article-cover img {
     width: 100%;
-    height: 56.25%;
+    height: 100%;
     object-fit: cover;
     position: absolute;
     top: 0;
