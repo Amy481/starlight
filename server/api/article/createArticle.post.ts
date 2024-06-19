@@ -24,6 +24,7 @@ export default defineEventHandler(async (event) => {
     authorName,
     date: new Date().toLocaleString(),
     likes: 0,
+    likedByUsers: [],
     replies: 0,
     views: 0,
   };
