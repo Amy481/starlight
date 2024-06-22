@@ -51,7 +51,9 @@
 
   const userStore = useUserStore();
   const isLiked = ref(false);
-  isLiked.value = article.value.likedByUsers.includes(userStore.userInfo.id);
+  if (article.value) {
+    isLiked.value = article.value.likedByUsers.some((user) => user.id === userStore.userInfo.id);
+  }
 
   const likeArticle = async () => {
     if (!userStore.isLogin) {
@@ -64,8 +66,8 @@
         userId: userStore.userInfo.id,
       },
     });
-    if (success) {
-      isLiked.value = likedByUsers.includes(useUser.userInfo.id);
+    if (success && likedByUsers) {
+      isLiked.value = likedByUsers.some((user) => user.id === useUser.userInfo.id);
     }
   };
 </script>

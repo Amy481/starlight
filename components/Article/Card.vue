@@ -7,7 +7,9 @@
 
   const userStore = useUserStore();
 
-  const isLiked = computed(() => props.article.likedByUsers.includes(userStore.userInfo.id));
+  const isLiked = computed(() =>
+    props.article.likedByUsers.some((user) => user.id === userStore.userInfo.id)
+  );
 
   const likeArticle = async () => {
     if (!userStore.isLogin) {
@@ -20,8 +22,8 @@
         userId: userStore.userInfo.id,
       },
     });
-    props.article.likes = likes;
-    props.article.likedByUsers = likedByUsers;
+    if (likes !== undefined) props.article.likes = likes;
+    if (likedByUsers !== undefined) props.article.likedByUsers = likedByUsers;
   };
 </script>
 
