@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Article {
+  id           Int      @id @default(autoincrement())
+  cover        String?
+  title        String
+  content      String
+  authorId     String
+  authorName   String
+  date         String
+  likes        Int
+  replies      Int
+  views        Int
+  tags         Tag[]
+  likedByUsers User[]
+}
+
+model Tag {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  count Int
+  likes Int
+  articles Article[]
+}
+
+model User {
+  id        String   @id
+  name      String
+  avatar    String
+  email     String   @unique
+  password  String
+  emailVerified Boolean
+  likedArticles Article[]
+}
