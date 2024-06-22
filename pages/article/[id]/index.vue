@@ -100,20 +100,21 @@
                 <i class="bi bi-person-fill me-1"></i>
                 {{ article?.authorName }}
               </NuxtLink>
-              <div class="ms-auto">
+              <div class="ms-auto fs-4">
                 <i
-                  :class="['bi', 'fs-4', isLiked ? 'bi-heart-fill text-danger' : 'bi-heart']"
+                  :class="['bi', isLiked ? 'bi-heart-fill text-danger' : 'bi-heart']"
                   @click="likeArticle"></i>
+                {{ article?.likes }}
               </div>
             </div>
             <div class="mb-3">
               <NuxtLink
                 v-for="tag in article?.tags"
-                :key="tag"
+                :key="tag.name"
                 class="badge bg-secondary text-decoration-none link-light me-2 mb-2"
-                :to="'/topic/' + tag">
+                :to="'/topic/' + tag.name">
                 <i class="bi bi-tag-fill me-1"></i>
-                {{ tag }}
+                {{ tag.name }}
               </NuxtLink>
             </div>
           </header>

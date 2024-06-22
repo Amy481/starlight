@@ -25,8 +25,8 @@
   <div class="popular-topics bg-gradient d-none d-md-block rounded-top shadow-sm p-1 mb-5">
     <h4 class="m-1 ms-3">{{ tagClass }}</h4>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item" v-for="topic in activeTopics" :key="topic.tag">
-        <NuxtLink class="topic" :to="`/topic/${topic.tag}`"># {{ topic.tag }}</NuxtLink>
+      <li class="list-group-item" v-for="topic in activeTopics" :key="topic.name">
+        <NuxtLink class="topic" :to="`/topic/${topic.name}`"># {{ topic.name }}</NuxtLink>
       </li>
     </ul>
   </div>

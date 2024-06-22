@@ -49,10 +49,10 @@
         <div>
           <NuxtLink
             v-for="tag in article.tags"
-            :key="tag"
+            :key="tag.name"
             class="badge bg-secondary me-1"
-            :to="'/topic/' + tag"
-            ># {{ tag }}</NuxtLink
+            :to="'/topic/' + tag.name"
+            ># {{ tag.name }}</NuxtLink
           >
         </div>
         <p class="text-muted small text-end p-0 m-0">
