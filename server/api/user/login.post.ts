@@ -1,4 +1,4 @@
-import { users } from "./../user";
+import prisma from "@/server/prisma";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -6,7 +6,11 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
   // 檢查電子郵件是否存在於用戶列表中
-  const user = users.value.find((user) => user?.email === body.email);
+  const user = await prisma.user.findUnique({
+    where: {
+      email: body.email,
+    },
+  });
   if (!user) {
     return {
       success: false,

@@ -6,10 +6,23 @@ export interface Article {
   authorId: string;
   authorName: string;
   date: string;
-  tags: string[];
   likes: number;
   replies: number;
   views: number;
+  tags: {
+    id: number;
+    name: string;
+    count: number;
+    likes: number;
+  }[];
+  likedByUsers: {
+    id: string;
+    name: string;
+    avatar: string;
+    email: string;
+    password: string;
+    emailVerified: boolean;
+  }[];
 }
 
 export interface ArticleData {
@@ -18,7 +31,8 @@ export interface ArticleData {
 }
 
 export interface Tag {
-  tag: string;
+  id: number;
+  name: string;
   count: number;
   likes: number;
 }

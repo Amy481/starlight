@@ -1,4 +1,4 @@
-import { articles } from "../articles";
+import prisma from "@/server/prisma";
 import { Article } from "@/types";
 
 export default defineEventHandler(async (event) => {
@@ -11,24 +11,28 @@ export default defineEventHandler(async (event) => {
       message: "缺少必需的輸入內容",
     });
   }
-  const articleIndex = articles.value.findIndex((article) => article.id === Number(id));
+  const updatedArticle = await prisma.article.update({
+    where: { id: Number(id) },
+    data: {
+      title,
+      content,
+      cover: cover || null,
+      tags: {
+        connectOrCreate: tags.map((tag: string) => ({
+          where: { name: tag },
+          create: { name: tag, count: 1, likes: 0 },
+        })),
+      },
+    },
+    include: { tags: true },
+  });
 
-  if (articleIndex === -1) {
+  if (!updatedArticle) {
     throw createError({
       statusCode: 404,
       message: "找不到文章",
     });
   }
-
-  const updatedArticle: Article = {
-    ...articles.value[articleIndex],
-    title,
-    content,
-    cover: cover || null,
-    tags: tags || [],
-  };
-
-  articles.value[articleIndex] = updatedArticle;
 
   return {
     success: true,

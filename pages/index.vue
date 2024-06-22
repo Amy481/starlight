@@ -55,10 +55,10 @@
     <nav class="p-3 mb-4">
       <NuxtLink
         v-for="topic in activeTopics"
-        :key="topic.tag"
-        :to="`/topic/${topic.tag}`"
+        :key="topic.name"
+        :to="`/topic/${topic.name}`"
         class="badge rounded-pill flex-wrap m-1"
-        ># {{ topic.tag }}</NuxtLink
+        ># {{ topic.name }}</NuxtLink
       >
     </nav>
     <div class="divider my-4">
@@ -77,6 +77,7 @@
             class="card-img-top"
             :alt="article.title"
             format="webp"
+            quality="80"
             loading="lazy" />
           <NuxtImg
             v-if="article.cover"
@@ -84,6 +85,7 @@
             class="card-img-top"
             :alt="article.title"
             format="webp"
+            quality="80"
             loading="lazy" />
           <div class="card-body">
             <h5 class="card-title">{{ article.title }}</h5>

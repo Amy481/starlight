@@ -134,7 +134,6 @@
                 :class="{ 'text-danger': errors['password'] }"></i>
             </span>
           </div>
-          <a href="#!" class="d-flex justify-content-end align-items-center">忘記密碼？</a>
         </div>
         <div class="d-flex justify-content-between align-items-center">
           <div class="form-check mb-0">
@@ -153,15 +152,6 @@
           還沒有帳號？ <NuxtLink to="/user/register" class="link-danger">註冊新帳號</NuxtLink>
         </p>
       </VForm>
-
-      <div class="divider my-4">
-        <p class="text-center fw-bold mx-3 mb-0">或者</p>
-      </div>
-
-      <button type="button" class="btn btn-lg btn-outline-primary btn-floating mb-4">
-        <i class="fab fa-google-f"></i>
-        <i class="bi bi-google"></i> 以google帳號登入
-      </button>
     </div>
   </div>
 </template>

@@ -95,11 +95,13 @@
               <ul
                 class="dropdown-menu dropdown-menu-end"
                 aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">我的創作</a></li>
+                <li>
+                  <NuxtLink class="dropdown-item" :to="`/user/${userInfo.id}`">我的創作</NuxtLink>
+                </li>
                 <li><NuxtLink class="dropdown-item" to="/article/create">新增創作</NuxtLink></li>
                 <hr class="dropdown-divider" />
 
-                <li><a class="dropdown-item" @click="handleLogout" href="#">登出</a></li>
+                <li><a class="dropdown-item" @click="handleLogout">登出</a></li>
               </ul>
             </li>
           </ul>

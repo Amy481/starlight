@@ -1,7 +1,6 @@
 <template>
   <section class="section-background position-relative">
     <NuxtImg
-      preload
       src="/starlight-background.jpg"
       class="background-image position-absolute object-fit-cover w-100 h-100"
       alt="Background"

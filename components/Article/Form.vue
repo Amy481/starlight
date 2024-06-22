@@ -22,7 +22,7 @@
     article.value.title = responseArticle.value.title || "";
     article.value.cover = responseArticle.value.cover || "";
     article.value.content = responseArticle.value.content || "";
-    article.value.tags = responseArticle.value.tags || [];
+    article.value.tags = responseArticle.value.tags.map((tag) => tag.name) || [];
     article.value.authorId = responseArticle.value.authorId || "";
   }
   const newTag = ref("");

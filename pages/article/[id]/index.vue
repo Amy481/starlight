@@ -48,6 +48,28 @@
       console.error("刪除文章錯誤:", error);
     }
   };
+
+  const userStore = useUserStore();
+  const isLiked = ref(false);
+  if (article.value) {
+    isLiked.value = article.value.likedByUsers.some((user) => user.id === userStore.userInfo.id);
+  }
+
+  const likeArticle = async () => {
+    if (!userStore.isLogin) {
+      return;
+    }
+    const { success, likedByUsers } = await $fetch("/api/article/likeArticle", {
+      method: "POST",
+      body: {
+        id: articleId,
+        userId: userStore.userInfo.id,
+      },
+    });
+    if (success && likedByUsers) {
+      isLiked.value = likedByUsers.some((user) => user.id === useUser.userInfo.id);
+    }
+  };
 </script>
 
 <template>
@@ -70,7 +92,8 @@
         <article>
           <header class="mb-4">
             <h1 class="article-title mb-3 display-4 fw-bold">{{ article?.title }}</h1>
-            <div class="d-flex align-items-center mb-3">
+            <div
+              class="d-flex flex-column flex-md-row align-items-start align-items-md-center mb-3">
               <div class="text-muted fst-italic me-3">
                 <i class="bi bi-calendar-event me-1"></i>
                 {{ article?.date }}
@@ -79,15 +102,21 @@
                 <i class="bi bi-person-fill me-1"></i>
                 {{ article?.authorName }}
               </NuxtLink>
+              <div class="ms-auto fs-4">
+                <i
+                  :class="['bi', isLiked ? 'bi-heart-fill text-danger' : 'bi-heart']"
+                  @click="likeArticle"></i>
+                {{ article?.likes }}
+              </div>
             </div>
             <div class="mb-3">
               <NuxtLink
                 v-for="tag in article?.tags"
-                :key="tag"
+                :key="tag.name"
                 class="badge bg-secondary text-decoration-none link-light me-2 mb-2"
-                :to="'/topic/' + tag">
+                :to="'/topic/' + tag.name">
                 <i class="bi bi-tag-fill me-1"></i>
-                {{ tag }}
+                {{ tag.name }}
               </NuxtLink>
             </div>
           </header>

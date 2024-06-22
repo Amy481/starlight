@@ -1,5 +1,5 @@
-import { articles } from "../articles";
-export default defineEventHandler((event) => {
+import prisma from "@/server/prisma";
+export default defineEventHandler(async (event) => {
   const query = getQuery(event);
   const articleId = Number(query.id);
 
@@ -10,7 +10,10 @@ export default defineEventHandler((event) => {
     });
   }
 
-  const article = articles.value.find((article) => article.id === articleId);
+  const article = await prisma.article.findUnique({
+    where: { id: articleId },
+    include: { tags: true, likedByUsers: true },
+  });
 
   if (!article) {
     throw createError({
@@ -18,6 +21,11 @@ export default defineEventHandler((event) => {
       message: "找不到文章",
     });
   }
+
+  await prisma.article.update({
+    where: { id: articleId },
+    data: { views: { increment: 1 } },
+  });
 
   return article;
 });

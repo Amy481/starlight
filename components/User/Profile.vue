@@ -40,26 +40,15 @@
         loading="lazy"
         format="webp" />
     </div>
-    <div class="text-center mt-3">
+    <div class="text-center mt-5">
       <div class="fw-bold">{{ user.name }}</div>
-      <div class="text-muted fw-light">{{ user.email }}</div>
-    </div>
-    <div class="profile-userbuttons text-center mt-3 mb-4">
-      <button type="button" class="btn btn-follow btn me-2">
-        <i class="bi bi-person-plus me-1"></i>追蹤
-      </button>
-      <button type="button" class="btn btn-outline-secondary btn">
-        <i class="bi bi-chat-left-text me-1"></i>訊息
-      </button>
+      <a :href="`mailto:${user.email}`" class="text-muted fw-light">{{ user.email }}</a>
     </div>
     <ul class="nav flex-column">
       <li class="nav-item mb-1">
         <NuxtLink class="nav-link" :to="`/user/${user.id}`">
           <i class="bi bi-house me-2"></i>{{ user.name }} 的文章</NuxtLink
         >
-      </li>
-      <li class="nav-item mb-1">
-        <a class="nav-link" href="#"> <i class="bi bi-gear me-2"></i>帳號設置 </a>
       </li>
       <li class="nav-item mb-1">
         <NuxtLink class="nav-link" to="/article/create">
