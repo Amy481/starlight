@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
-import { users } from "./../user";
-import { getCookie } from "h3";
+import prisma from "@/server/prisma";
 
 export default defineEventHandler(async (event) => {
   // 獲取 cookie 中的 token
@@ -21,7 +20,11 @@ export default defineEventHandler(async (event) => {
     const decoded = jwt.verify(token, secretKey) as { userId: string };
 
     // 尋找對應用户信息
-    const user = users.value.find((user) => user?.id === decoded.userId);
+    const user = await prisma.user.findUnique({
+      where: {
+        id: decoded.userId,
+      },
+    });
 
     if (!user) {
       return {

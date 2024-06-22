@@ -1,4 +1,4 @@
-import { articles } from "../articles";
+import prisma from "@/server/prisma";
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event);
@@ -11,16 +11,16 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const articleIndex = articles.value.findIndex((article) => article.id === articleId);
+  const deletedArticle = await prisma.article.delete({
+    where: { id: articleId },
+  });
 
-  if (articleIndex === -1) {
+  if (!deletedArticle) {
     throw createError({
       statusCode: 404,
       message: "找不到文章",
     });
   }
-
-  articles.value.splice(articleIndex, 1);
 
   return {
     success: true,

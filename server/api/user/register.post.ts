@@ -1,12 +1,15 @@
-import { User } from "@/types";
-import { users } from "./../user";
+import prisma from "@/server/prisma";
 import bcrypt from "bcrypt";
 import { uuidv7 as uuid } from "uuidv7";
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
   // 檢查email是否已經被註冊
-  const existingUser = users.value.find((user) => user?.email === body.email);
+  const existingUser = await prisma.user.findUnique({
+    where: {
+      email: body.email,
+    },
+  });
   if (existingUser) {
     return {
       success: false,
@@ -26,18 +29,17 @@ export default defineEventHandler(async (event) => {
     body.avatar = "/default_avatar.jpg";
   }
 
-  // 創建新用戶對象
-  const newUser: User = {
-    id: newUserId,
-    name: body.name,
-    avatar: body.avatar,
-    email: body.email,
-    password: hashedPassword,
-    emailVerified: false, // 預設為未驗證
-  };
-
-  // 將新用戶添加到 users 數組
-  users.value.push(newUser);
+  // 創建新用戶
+  const newUser = await prisma.user.create({
+    data: {
+      id: newUserId,
+      name: body.name,
+      avatar: body.avatar,
+      email: body.email,
+      password: hashedPassword,
+      emailVerified: false, // 預設為未驗證
+    },
+  });
 
   return {
     success: true,

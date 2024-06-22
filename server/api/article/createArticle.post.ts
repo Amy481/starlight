@@ -1,5 +1,4 @@
-import { articles } from "../articles";
-import { Article } from "@/types";
+import prisma from "@/server/prisma";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
@@ -12,24 +11,26 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const newAuthorId =
-    articles.value.length > 0 ? Math.max(...articles.value.map((article) => article.id)) + 1 : 1;
-  const newArticle: Article = {
-    id: newAuthorId,
-    title,
-    content,
-    cover: cover || null,
-    tags: tags || [],
-    authorId,
-    authorName,
-    date: new Date().toLocaleString(),
-    likes: 0,
-    likedByUsers: [],
-    replies: 0,
-    views: 0,
-  };
-
-  articles.value.unshift(newArticle);
+  const newArticle = await prisma.article.create({
+    data: {
+      title,
+      content,
+      cover: cover || null,
+      authorId,
+      authorName,
+      date: new Date().toLocaleString(),
+      likes: 0,
+      replies: 0,
+      views: 0,
+      tags: {
+        connectOrCreate:
+          tags?.map((tag: string) => ({
+            where: { name: tag },
+            create: { name: tag, count: 1, likes: 0 },
+          })) || [],
+      },
+    },
+  });
 
   return {
     success: true,

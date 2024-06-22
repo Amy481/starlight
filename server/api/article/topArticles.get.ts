@@ -1,12 +1,17 @@
 import { Article } from "@/types";
-import { articles } from "../articles";
+import prisma from "@/server/prisma";
 
 export default defineEventHandler(async () => {
-  function getTopArticles(): Article[] {
-    const sortedArticles = [...articles.value].sort((a, b) => b.likes - a.likes);
-    return sortedArticles.slice(0, 3);
+  async function getTopArticles(): Promise<Article[]> {
+    const topArticles = await prisma.article.findMany({
+      orderBy: { likes: "desc" },
+      take: 3,
+      include: { tags: true, likedByUsers: true },
+    });
+    return topArticles;
   }
-  const topArticles = getTopArticles();
+
+  const topArticles = await getTopArticles();
 
   return {
     topArticles,

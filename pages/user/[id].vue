@@ -7,18 +7,18 @@
   const { data: author } = await useFetch<User | null>(`/api/user/getUser?userId=${authorId}`);
 
   useSeoMeta({
-    title: `${author.value?.name}的創作`,
-    ogTitle: `探索 ${author.value?.name} 的創作集`,
-    description: `發掘 ${author.value?.name} 在 Starlight 的精彩創作內容。了解作者如何將創意轉化為文字，並共享創作的樂趣。`,
-    ogDescription: `探索 ${author.value?.name} 的精彩文章集，每一篇文章都是對創意和表達的探索，在這裡發現、互動並豐富您的閱讀生活。`,
-    ogImage: author.value?.avatar,
+    title: `${author.value.name}的創作`,
+    ogTitle: `探索 ${author.value.name} 的創作集`,
+    description: `發掘 ${author.value.name} 在 Starlight 的精彩創作內容。了解作者如何將創意轉化為文字，並共享創作的樂趣。`,
+    ogDescription: `探索 ${author.value.name} 的精彩文章集，每一篇文章都是對創意和表達的探索，在這裡發現、互動並豐富您的閱讀生活。`,
+    ogImage: author.value.avatar,
     twitterCard: "summary_large_image",
   });
 </script>
 
 <template>
   <BackgroundSection>
-    <h1 class="m-0">{{ author?.name }}的創作</h1>
+    <h1 class="m-0">{{ author.name }}的創作</h1>
   </BackgroundSection>
   <section class="hr-background p-2"></section>
   <div class="row flex-row-reverse p-0 m-0">
